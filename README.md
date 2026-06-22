@@ -9,6 +9,11 @@ the AI policy/legislation arc. Plus a labelled weekly take on Fridays and a livi
 Sibling to [ai-finance-newsletter](https://github.com/giovicordova/ai-finance-newsletter) —
 same DNA, aimed at AI/LLM evolution instead of markets.
 
+## Subscribe
+
+**[t.me/aidramaa](https://t.me/aidramaa)** — follow on Telegram. Up to three short posts a
+day, only when something material happens. Most slots stay silent on purpose.
+
 ## What makes it different
 
 - **Trust no one.** Primary-source-first sourcing — lab model cards, arxiv, official
