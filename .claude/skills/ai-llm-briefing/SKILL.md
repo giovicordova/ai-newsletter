@@ -18,18 +18,33 @@ No day-of-week gate; the briefing runs daily. The gate is materiality (Section 2
 
 ## 1. Voice
 
-~280 chars per post, for busy people who follow AI and won't survive a wall of text. Calibrate at ~4 on a 0–10 scale (0 = raw changelog, 10 = warm essay): a smart reader who isn't a researcher gets it first read. Connectives welcome (`which means`, `the interesting thing is`); fragments allowed if they land. Never cute, never "let's dive in", never breathless (`game-changer`, `insane`, `🚀`).
+A daily beat runs ≤500 chars (excluding the URL line and hashtags), for busy people who follow AI and won't survive a wall of text. Keep the lead (first paragraph) ≤ ~210 chars so the LinkedIn "see more" fold never hides the hook — the same beat doubles as the LinkedIn post. Calibrate at ~4 on a 0–10 scale (0 = raw changelog, 10 = warm essay): a smart reader who isn't a researcher gets it first read. Connectives welcome (`which means`, `the interesting thing is`); fragments allowed if they land. Never cute, never "let's dive in", never breathless (`game-changer`, `insane`, `🚀`).
+
+Post anatomy — up to three parts, in order, then hashtags + URL:
+1. **Lead** (required) — the factual core, sourced and truth-gated (§5, §9): strongest fact first, correct modality, names/jargon unpacked.
+2. **Quote** (optional) — one verbatim sentence copied from the source, in quotation marks, when a strong line earns it. Exact, never doctored.
+3. **Reaction** (optional) — one short, clearly-personal aside (a wish, a question, a dry take) when there's an honest one. Never forced; no take ⇒ omit it.
+
+Close with the source URL on its own line. Up to 4 hashtags (inline in the prose or grouped at the end) and at most one emoji, both optional.
 
 Hard rules — every post, no exceptions:
 1. Unpack ML jargon inline (`MoE` → `a mixture-of-experts design that only runs part of the model per query`; `context window` → `how much text the model can read at once`). Reader never looks anything up. Same for: `inference`, `distillation`, `RLHF`, `quantisation`, `tokens/sec`, `KV cache`.
 2. Full names (`Google DeepMind` not `GDM`, `Hugging Face` not `HF`); spell out a lab/product on first use. Model names as released (`Claude Opus 4.8`, `GPT-5`, `DeepSeek-V3`).
 3. One main idea per sentence. If it joins two facts with "and… and…", split it.
-4. No hype, no verdicts. Banned: `game-changer`, `crushes`, `destroys`, `insane`, `SOTA-by-far`, `obviously the best`, any unbenchmarked superlative. Capability claims carry a named benchmark + number (Section 5). Opinion ships only in the Friday take — never a daily opinion.
-5. Only URLs you opened this session; never construct from memory; the post claims nothing the link doesn't support.
+4. The **lead and quote** carry no hype, no verdicts — banned: `game-changer`, `crushes`, `destroys`, `insane`, `SOTA-by-far`, `obviously the best`, any unbenchmarked superlative; capability claims carry a named benchmark + number (§5). The **reaction** may be subjective, but it is one labeled aside that states no unsourced fact and no prediction-as-fact. The Friday take (§8) stays the longer week-synthesis opinion — the daily reaction is a single quip on one beat.
+5. Match the source's modality and tense (§5): announced/selected/will ≠ present-tense is/can/available/released. The post claims nothing the link doesn't support; only URLs opened this session, never from memory.
 
-Example — a model-release beat:
-- Hypey: *"DeepSeek dropped an INSANE model that crushes everyone on coding — open weights, basically free. Game over for closed labs."*
-- Target: *"DeepSeek released V4, an open-weights model (anyone can download and run it). It reports 71% on SWE-bench Verified, a coding benchmark, priced at $0.30 per million input tokens. Independent results pending."*
+Examples:
+- Release (present tense legitimate) — WRONG: *"DeepSeek dropped an INSANE model that crushes everyone on coding."* RIGHT: *"DeepSeek released V4, an open-weights model (anyone can download and run it). It reports 71% on SWE-bench Verified, a coding benchmark, at $0.30 per million input tokens. Independent results pending."* ("released" → present is true.)
+- Announcement (future) — WRONG: *"…to build an open-source frontier model — anyone can download it — at 400B+ parameters."* (invents present availability; states the 400B target as a shipped spec). RIGHT, in the new anatomy:
+
+  > The European Commission picked the EUROPA consortium, led by Italian firm Domyn, to build an open-source frontier model in all 24 official EU languages. Europe's bid for advanced AI on its own infrastructure.
+  >
+  > "Invited Europe's leading AI innovators to propose a model with more than 400 billion parameters"
+  >
+  > cool — though I hope it ends up more like 10 trillion. #Domyn #AI
+
+  (lead in correct modality; verbatim quote; the 10-trillion line is an obvious wish, not a claim.)
 
 ## 2. Materiality / SKIP gate (core logic)
 
@@ -95,6 +110,8 @@ The reader must click the link and verify every claim, no paywall, no rumor. Tha
 
 URL rules (non-negotiable): only URLs opened this session; never from memory; the link contains *every* claim in the post (drop unsupported claims); free; allowlisted.
 
+**Modality rule (match the source's tense) — the root-cause guard.** If the source says *selected to / will / plans / aims / targets / in progress / by <date>*, never write *is / can / available / released / downloadable / launched*. Announced ≠ shipped. Parameter and language counts in an announcement are **targets** until a model card or release confirms them — label them as targets or omit. Any verbatim quote pulled into the post (anatomy §1) must be exact and must not distort the source.
+
 ## 6. Edition file format (one file/day, 3 run sections)
 
 Write to `editions/YYYY-MM-DD.md` (today, Europe/Rome). Fill **only your own `## Telegram — Run HH:MM` section**, never another slot's. The send script keys on these exact headings — don't paraphrase. First slot of the day creates the file (header + your section); later slots add their section, leaving others intact.
@@ -104,7 +121,13 @@ Write to `editions/YYYY-MM-DD.md` (today, Europe/Rome). Fill **only your own `##
 
 ## Telegram — Run 07:00
 
-[post text, ≤280 chars, factual, primary source]
+[lead — factual, sourced, correct modality (§5)]
+
+"[verbatim source quote — optional]"
+
+[one clearly-personal reaction — optional]
+
+#Tag #Tag
 
 [primary source URL on its own line]
 
@@ -122,6 +145,9 @@ SKIPPED — no material movement since 07:00. (T1 quiet; no new model cards; chi
 
 ### Run 07:00 — considered / sources / thread updates
 - [chosen beat — why] [link]
+- **Source-anchored claims:**
+  - "[lead clause]" <- "[verbatim source sentence backing it]"
+  - "[pulled quote]" <- "[same sentence in the source]"
 - [runner-up — why not] [link]
 - Threads touched: T1 advanced; T3 opened.
 
@@ -132,6 +158,8 @@ SKIPPED — no material movement since 07:00. (T1 quiet; no new model cards; chi
 ```
 
 SKIPPED stub: section body starts with the literal word `SKIPPED`, then ` — ` and a one-line reason. The send and review scripts both detect this and never send it.
+
+**Source-anchored claims (required for every posted run).** Each non-skipped run's Notes subsection carries a `**Source-anchored claims:**` block pairing every factual clause of the lead + the pulled quote with the verbatim source sentence that backs it. A clause with no verbatim anchor does not ship. The reaction line is opinion, so it is not anchored — but it must contain no factual assertion. `review-edition.sh` checks the block is present; SKIPPED runs have none.
 
 ## 7. MODELS.md (read-only from daily runs)
 
@@ -149,8 +177,8 @@ Daily beats are "what happened"; the Friday take is "what the *week* meant". Kee
 
 ## 9. Write & ship
 
-1. Draft the beat — one to two short sentences, lead with the strongest fact (often a number), strip every word that adds nothing.
-2. Verify — would every claim survive clicking the link? Cut anything unsupported. Count characters; hard cap 280.
+1. Compose the beat to the anatomy (§1) — lead (strongest fact first), optional verbatim quote, optional one-line reaction, up to 4 hashtags. Strip every word that adds nothing.
+2. Reconcile against source — open the URL opened this session. Break the lead and any pulled quote into atomic factual clauses; for each, find the verbatim source sentence that proves it and record it in the Notes **Source-anchored claims** block (§6). Cut or rewrite any clause with no verbatim anchor. Apply the modality rule (§5): announced/selected/will ≠ present-tense availability/spec. Confirm the reaction (if any) asserts no fact. Count characters; cap 500 (excluding the URL line and hashtags).
 3. Assemble the edition file (Section 6) — your slot's section + its Notes subsection, honestly.
 4. Rewrite `THREADS.md` (Section 3) — always, post or skip.
 5. Review: `scripts/review-edition.sh editions/YYYY-MM-DD.md`. Fix failures before sending.
@@ -161,10 +189,12 @@ If `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are missing, the script errors but 
 
 ## 10. Final quality check
 
-Deal-breakers first — fail any of the first four and the post must not ship:
+Deal-breakers first — fail any of the first six and the post must not ship:
 
-- [ ] Post ≤280 chars (excluding the URL line)
-- [ ] Every fact verifiable by clicking the post's link — no exceptions
+- [ ] Beat ≤500 chars (excluding the URL line and hashtags); ≤4 hashtags; ≤1 emoji
+- [ ] Every fact in the lead/quote verifiable by clicking the link — and recorded in the Notes **Source-anchored claims** block (§6)
+- [ ] No modality drift — no present-tense availability/release/spec when the source says selected to / will / plans / targets (§5); any pulled quote is verbatim
+- [ ] Reaction (if any) is clearly opinion — one labeled aside, no unsourced fact, no prediction-as-fact
 - [ ] Source primary-first, allowlisted (§5), free, opened this session; no rumor/social/aggregator
 - [ ] **Dedup honored** — not already posted by an earlier slot today; if it continues a thread, it advances rather than repeats
 - [ ] No hype/verdict language; any capability claim carries a named benchmark + number

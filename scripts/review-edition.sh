@@ -5,8 +5,9 @@
 #   - For each present run section (## Telegram — Run HH:MM):
 #       * If the body is a SKIPPED stub (starts with "SKIPPED"), it passes
 #         untouched (no post this slot).
-#       * Otherwise body ≤ 280 chars (excluding URL on its own line) and
-#         exactly 1 URL.
+#       * Otherwise body ≤ 500 chars (excluding URL and hashtag lines),
+#         exactly 1 URL, ≤ 4 hashtags, and a "Source-anchored claims" block
+#         in the matching Notes subsection.
 #   - Take post is OPTIONAL (Friday only). If present:
 #       * body ≤ 280 chars including the "Claude's weekly take: " prefix
 #       * exactly one URL
@@ -30,6 +31,8 @@ fi
 
 EDITION="$1"
 RUN_SLOTS="07:00 13:00 20:00"
+MAX_CHARS=500          # daily beat cap: lead + quote + reaction (excludes URL + hashtag lines)
+MAX_HASHTAGS=4
 
 if [ ! -f "$EDITION" ]; then
   echo "Error: file not found: $EDITION"
@@ -58,17 +61,32 @@ extract_section() {
   ' "$EDITION"
 }
 
+# Extract a Notes subsection body between "### Run HH:MM ..." and the next "### "/"## "/EOF.
+extract_notes_subsection() {
+  local slot="$1"
+  awk -v h="### Run $slot" '
+    index($0, h) == 1 { capture=1; next }
+    capture && (/^### / || /^## /) { exit }
+    capture { print }
+  ' "$EDITION"
+}
+
 # Body chars excluding URL-only lines.
 body_chars() {
   printf '%s' "$1" | awk '
     /^[[:space:]]*$/ { next }
     /^[[:space:]]*https?:\/\// { next }
+    /^[[:space:]]*#[A-Za-z0-9]/ { next }
     { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); printf "%s", $0 }
   ' | wc -c | tr -d ' '
 }
 
 count_urls() {
   printf '%s' "$1" | grep -cE '^[[:space:]]*https?://' || true
+}
+
+count_hashtags() {
+  printf '%s' "$1" | grep -oE '(^|[[:space:]])#[A-Za-z0-9_]+' | wc -l | tr -d ' '
 }
 
 is_skip() {
@@ -90,10 +108,18 @@ for SLOT in $RUN_SLOTS; do
   fi
   CHARS=$(body_chars "$SECTION")
   URLS=$(count_urls "$SECTION")
-  if [ "$CHARS" -le 280 ]; then check "Run $SLOT body ≤ 280 chars (got $CHARS)" 0
-  else check "Run $SLOT body ≤ 280 chars (got $CHARS)" 1; fi
+  HASHTAGS=$(count_hashtags "$SECTION")
+  if [ "$CHARS" -le "$MAX_CHARS" ]; then check "Run $SLOT body ≤ $MAX_CHARS chars (got $CHARS)" 0
+  else check "Run $SLOT body ≤ $MAX_CHARS chars (got $CHARS)" 1; fi
   if [ "$URLS" -eq 1 ]; then check "Run $SLOT has exactly 1 URL" 0
   else check "Run $SLOT has exactly 1 URL (got $URLS)" 1; fi
+  if [ "$HASHTAGS" -le "$MAX_HASHTAGS" ]; then check "Run $SLOT has ≤ $MAX_HASHTAGS hashtags (got $HASHTAGS)" 0
+  else check "Run $SLOT has ≤ $MAX_HASHTAGS hashtags (got $HASHTAGS)" 1; fi
+  if printf '%s' "$(extract_notes_subsection "$SLOT")" | grep -q 'Source-anchored claims:'; then
+    check "Run $SLOT Notes has Source-anchored claims block" 0
+  else
+    check "Run $SLOT Notes has Source-anchored claims block" 1
+  fi
 done
 
 if [ "$RUNS_FOUND" -eq 0 ]; then

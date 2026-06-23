@@ -31,16 +31,17 @@ their edition + `THREADS.md` back. That commit-back is what gives the next run i
 ## Setup — cloud routines
 
 For each routine: **Schedule → + New task → New remote task**, connect the repo, paste
-the prompt file's contents, set the cadence and time, model **Sonnet 4.6**, permission
-mode **auto-approve file writes**, and add the Telegram secrets to the run environment.
+the prompt file's contents, set the cadence and time, model **Opus 4.8** (high reasoning
+effort), permission mode **auto-approve file writes**, and add the Telegram secrets to the
+run environment.
 
 | Name | Prompt | Frequency | Time (Europe/Rome) |
 |---|---|---|---|
-| AI/LLM Run 07:00 | `routines/run.md` | Daily | 07:00 |
-| AI/LLM Run 13:00 | `routines/run.md` | Daily | 13:00 |
-| AI/LLM Run 20:00 | `routines/run.md` | Daily | 20:00 |
-| AI/LLM Weekly Take | `routines/take.md` | Friday | 21:00 |
-| AI/LLM MODELS Refresh | `routines/models.md` | Sunday | 18:00 |
+| ai-drama Run 07:00 | `routines/run.md` | Daily | 07:00 |
+| ai-drama Run 13:00 | `routines/run.md` | Daily | 13:00 |
+| ai-drama Run 20:00 | `routines/run.md` | Daily | 20:00 |
+| ai-drama Weekly Take | `routines/take.md` | Friday | 21:00 |
+| ai-drama MODELS Refresh | `routines/models.md` | Sunday | 18:00 |
 
 Or set them up conversationally: open a session with this repo connected and describe the
 five triggers above.
